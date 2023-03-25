@@ -1,6 +1,7 @@
 
 const {delayMiddleware,fetchMiddlewares } = require('./todoMiddleware');
 const { createStore, applyMiddleware } = require("redux");
+const { fetchTodos } = require('./utilityMiddlware');
 // initialState
 const initialState = {
     todos : [],
@@ -44,7 +45,9 @@ store.dispatch({
     payload: 'Adding someting speacial'
 })
 
-store.dispatch({
-    type: 'todo/fetchTodo',
-    payload: 'Adding someting speacial'
-})
+// store.dispatch({
+//     type: 'todo/fetchTodo',
+//     payload: 'Adding someting speacial'
+// })
+// thunk concept ===> thunk action dispatch
+store.dispatch(fetchTodos)
