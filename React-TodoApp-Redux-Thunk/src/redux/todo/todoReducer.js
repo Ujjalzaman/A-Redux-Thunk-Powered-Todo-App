@@ -31,9 +31,9 @@ const todoReducer = (state=initialState, action) =>{
                 }
             })
         case TODOCOLORADDED:
-            const {id, color} = action.payload;
+            const {todoId, color} = action.payload;
             return state.map((todo) =>{
-                if(todo.id !== id){
+                if(todo.id !== todoId){
                     return todo
                 }
                 return {
