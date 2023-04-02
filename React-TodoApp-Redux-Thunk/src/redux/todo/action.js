@@ -1,4 +1,11 @@
-import { TODOADDED,TODODELETED,TODOCOLORADDED, TODOTOGGLED,TODOCOMPLETEALL, TODOCOMPLETECLEAR } from "./actionType"
+import { TODOADDED,TODODELETED,TODOCOLORADDED, TODOTOGGLED,TODOCOMPLETEALL, TODOCOMPLETECLEAR, FETCHTODOS } from "./actionType"
+
+export const loadedData = (todos) =>{
+    return {
+        type: FETCHTODOS,
+        payload: todos
+    }
+}
 
 export const add = (text) =>{
     return {

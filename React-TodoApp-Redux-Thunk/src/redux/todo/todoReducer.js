@@ -1,4 +1,4 @@
-import { TODOADDED,TODODELETED,TODOCOLORADDED, TODOTOGGLED,TODOCOMPLETEALL, TODOCOMPLETECLEAR } from "./actionType"
+import { FETCHTODOS,TODOADDED,TODODELETED,TODOCOLORADDED, TODOTOGGLED,TODOCOMPLETEALL, TODOCOMPLETECLEAR } from "./actionType"
 import initialState from './initalState';
 
 const genLastNumber = (todos) =>{
@@ -8,12 +8,15 @@ const genLastNumber = (todos) =>{
 
 const todoReducer = (state=initialState, action) =>{
     switch (action.type) {
+        case FETCHTODOS:
+            return action.payload
+
         case TODOADDED:
             return [
                 ...state, 
                 {
-                    id: genLastNumber(state),
-                    title: action.payload,
+                    id : genLastNumber(state),
+                    text : action.payload,
                     completed : false,
                 }
             ]

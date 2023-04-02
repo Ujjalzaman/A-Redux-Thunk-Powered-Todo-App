@@ -3,6 +3,7 @@ import plusImg from '../assets/images/plus.png';
 import notesImg from '../assets/images/notes.png';
 import { useDispatch } from 'react-redux';
 import { add,clearcomplete,completeAll } from '../redux/todo/action';
+import addTodosMiddleare from '../redux/todo/thunk/addTodosMiddlere';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Header = () => {
     }
     const handleOnSubmit = (e) =>{
         e.preventDefault();
-        dispatch(add(input));
+        dispatch(addTodosMiddleare(input));
         setInput("");   
     }
     const handleCompleteAllTask = () =>{

@@ -2,17 +2,21 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import cancelImg from '../assets/images/cancel.png'
 import { colorAdded, deleteTodo, toggledTodo } from '../redux/todo/action';
+import deleteTodosMiddleare from '../redux/todo/thunk/deleteTodosMiddleware';
+import colorChangeMiddlware from '../redux/todo/thunk/colorChangeMidleware';
+import updateStatusMiddleware from '../redux/todo/thunk/updateStatusMiddleware';
+
 const Todo = ({item}) => {
-    const  {id, completed, title, color} = item;
+    const  {id, completed, text, color} = item;
     const dispatch = useDispatch();
     const handleToggled = (id) =>{
-        dispatch(toggledTodo(id))
+        dispatch(updateStatusMiddleware(id, completed))
     }
     const handledelete = (id) =>{
-        dispatch(deleteTodo(id))
+        dispatch(deleteTodosMiddleare(id))
     }
     const handleColorChange = (id, color) =>{
-        dispatch(colorAdded(id, color))
+        dispatch(colorChangeMiddlware(id, color))
     }
     return (
         <div
@@ -38,7 +42,7 @@ const Todo = ({item}) => {
             </div>
 
             <div className={`select-none flex-1 ${completed && 'line-through'}`}>
-               {title}
+               {text}
             </div>
 
             <div
