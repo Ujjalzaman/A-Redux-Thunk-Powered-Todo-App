@@ -7,17 +7,19 @@ import store from './redux/store'
 import { Provider } from 'react-redux'
 
 function App() {
-
+  const handleEdit = (id) =>{
+        
+  }
   return (
-    <Provider store={store}>
-      <Nav/>
+    <>
+      <Nav />
       <main className="py-12 2xl:px-6">
-          <div className="container grid xl:grid-cols-[auto_350px] 2xl:grid-cols-[auto_400px] gap-4 2xl:gap-8">
-              <BookList/>
-              <AddNewFrom/>
-          </div>
+        <div className="container grid xl:grid-cols-[auto_350px] 2xl:grid-cols-[auto_400px] gap-4 2xl:gap-8">
+          <BookList/>
+          <AddNewFrom />
+        </div>
       </main>
-    </Provider>
+    </>
   )
 }
 
