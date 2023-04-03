@@ -1,4 +1,4 @@
-import { ADDBOOK, DELETEBOOK } from "./actionType";
+import { ADDBOOK, DELETEBOOK, UPDATEBOOK } from "./actionType";
 import initalState from "./initialState";
 
 const genNextId = (book) => {
@@ -18,6 +18,18 @@ const bookReducer = (state = initalState, action) => {
             ];
         case DELETEBOOK:
             return state.filter((item) => item.id !== action.payload);
+
+        case UPDATEBOOK:
+            const { bookName, bookAuthor, bookthumbnail, bookprice, bookrating, bookfeatured } = action.payload.book;
+            return state.map((book) =>{
+                if(book.id == action.payload.id){
+                    return book;
+                } 
+                return {
+                    ...book,
+                    bookName, bookAuthor, bookthumbnail, bookprice, bookrating, bookfeatured
+                }
+            })
 
         default:
             return state;

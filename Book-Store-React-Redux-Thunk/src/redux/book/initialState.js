@@ -5,7 +5,7 @@ const initalState = [
         thumbnail: "https://m.media-amazon.com/images/I/51Ga5GuElyL._SX331_BO1,204,203,200_.jpg",
         price: 14,
         rating: 3,
-        featured: false,
+        featured: true,
         id: 1
     },
 ]
