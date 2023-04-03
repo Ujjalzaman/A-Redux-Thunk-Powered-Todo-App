@@ -1,7 +1,8 @@
 import { BOOKFILTER, BOOKSEARCH } from "./actionType";
 
 const initalState = {
-    status: 'All'
+    status: 'All',
+    search: '',
 }
 
 const filterReducer = (state= initalState, action) =>{

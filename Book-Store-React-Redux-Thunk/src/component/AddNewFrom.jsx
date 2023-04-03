@@ -2,6 +2,8 @@ import React from 'react'
 import {useDispatch, useSelector} from 'react-redux';
 import { addedBook } from '../redux/book/actions';
 import { removeEdit } from '../redux/edit/actions';
+import addBookMiddleware from '../redux/book/thunk/addBook';
+import updateBookMiddlware from '../redux/book/thunk/udpatebook';
 
 let book = {name : '', author : '', thumbnail : '', price : '', rating : '', featured : false}
 
@@ -14,14 +16,13 @@ const AddNewFrom = () => {
   }
 
   const handleAddBook = (e) =>{
-    dispatch(addedBook(input))
+    dispatch(addBookMiddleware(book))
     e.preventDefault();
-    window.location.reload(true);
   }
 
   const handleUpdateBook = (e) =>{
+    dispatch(updateBookMiddlware(editBookId, book))
     dispatch(removeEdit())
-    window.location.reload(true);
     e.preventDefault();
   }
 

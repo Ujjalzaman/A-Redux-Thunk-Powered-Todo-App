@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Book from './Book'
 import { useDispatch, useSelector } from 'react-redux';
 import { bookFilter } from '../redux/filter/action';
+import fetchBooks from '../redux/book/thunk/fetchBook';
 
 
 
 const BookList = () => {
   const books = useSelector((state) => state.books);
   const filter = useSelector((state) => state.filter);
-  const {status, search} = filter;
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBooks)
+  }, [dispatch])
+
+  const { status, search } = filter;
   const handleStatus = (statusType) => {
     dispatch(bookFilter(statusType))
   }
 
-  const filterByStatus = (book) =>{
+  const filterByStatus = (book) => {
     switch (status) {
       case 'Featured':
         return book.featured
@@ -22,15 +27,8 @@ const BookList = () => {
         return book;
     }
   }
-  const filterBySearch = (book) => {
-    const searchTerms = search.toLowerCase().split(/[ ,.]+/); // split search string by whitespace and punctuation
-    const bookProperties = [book.name, book.author]; // add additional properties here
-    
-    return searchTerms.every((term) => // check that all search terms match at least one book property
-      bookProperties.some(
-        (prop) => prop.toLowerCase().replace(/[ ,.]+/g, '').includes(term)
-      )
-    );
+  const filterBySearch = (bookList) => {
+    return filter.search ? bookList.name.toLowerCase().includes(filter.search.toLowerCase()) : true;
   };
   return (
     <div className="order-2 xl:-order-1">
@@ -44,14 +42,17 @@ const BookList = () => {
       </div>
       <div className="lws-bookContainer">
         {books.length !== 0 ?
-
-            books
+          books
             .filter(filterByStatus)
-            .filter(filterBySearch)
+            .filter((book) =>
+              filter.search
+                ? book.name?.toLowerCase().includes(filter.search.toLowerCase())
+                : book
+            )
             .map((item) => (
               <Book item={item} key={item.id} />
             ))
-          
+
           : 'No books are availble'
         }
       </div>

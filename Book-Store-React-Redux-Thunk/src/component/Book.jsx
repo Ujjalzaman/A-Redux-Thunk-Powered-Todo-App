@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteBook } from '../redux/book/actions';
 import { bookEdit } from '../redux/edit/actions';
+import deleteBookMiddleware from '../redux/book/thunk/deleteBook';
 
 const genStarIcon = (iconNumber) => {
     const path = (
@@ -31,7 +32,7 @@ const Book = ({ item }) => {
     const dispatch = useDispatch();
 
     const handleDelete = (bookId) => {
-        dispatch(deleteBook(bookId))
+        dispatch(deleteBookMiddleware(bookId))
     }
     
     const handleEdit = (bookId) => {

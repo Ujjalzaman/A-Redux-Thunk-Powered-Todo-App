@@ -1,4 +1,4 @@
-import { ADDBOOK, DELETEBOOK, EDITBOOK, UPDATEBOOK } from "./actionType"
+import { ADDBOOK, DELETEBOOK, EDITBOOK, FETCHBOOK, UPDATEBOOK } from "./actionType"
 
 export const addedBook = (book) =>{
     return {
@@ -29,5 +29,12 @@ export const updateBook = (id, book) =>{
         payload: {
             id, book
         }
+    }
+}
+
+export const fetchBook = (books) =>{
+    return {
+        type: FETCHBOOK,
+        payload: books
     }
 }
