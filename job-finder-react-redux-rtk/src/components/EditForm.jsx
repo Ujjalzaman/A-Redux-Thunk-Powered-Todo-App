@@ -1,8 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { changeJob } from '../features/job/jobSlice';
 
-const EditForm = () => {
+const EditForm = ({jobToEdit}) => {
+  const { deadline, id, salary, title, type } = jobToEdit;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [newTitle, setNewTitle] = useState(title);
+  const [newType, setNewType] = useState(type);
+  const [newSalary, setNewSalary] = useState(salary);
+  const [newDeadline, setNewDeadline] = useState(deadline);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      changeJob({
+        id,
+        data: {
+          title: newTitle,
+          type: newType,
+          salary: newSalary,
+          deadline: newDeadline,
+        },
+      })
+    );
+
+    navigate('/');
+  };
+
+
   return (
-    <form className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="fieldContainer">
         <label className="text-sm font-medium text-slate-300">Job Title</label>
         <select
@@ -36,7 +66,8 @@ const EditForm = () => {
           id="lws-JobType"
           name="lwsJobType"
           required
-          value=""
+          value={newType}
+          onChange={(e) => setNewType(e.target.value)}
         >
           <option value="" hidden>
             Select Job Type
@@ -56,7 +87,8 @@ const EditForm = () => {
             name="lwsJobSalary"
             id="lws-JobSalary"
             required
-            value=""
+            value={newSalary}
+            onChange={(e) => setNewSalary(e.target.value)}
             className="!rounded-l-none !border-0"
             placeholder="20,00,000"
           />
@@ -69,7 +101,8 @@ const EditForm = () => {
           type="date"
           name="lwsJobDeadline"
           id="lws-JobDeadline"
-          value=""
+          value={newDeadline}
+          onChange={(e) => setNewDeadline(e.target.value)}
           required
         />
       </div>

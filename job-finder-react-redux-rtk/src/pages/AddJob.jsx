@@ -1,12 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import {createJob} from '../features/job/jobSlice';
+import {useNavigate} from 'react-router-dom';
 
 const AddJob = () => {
+  const [title, setTitle] = useState('');
+  const [type, setType] = useState('');
+  const [salary, setSalary] = useState('');
+  const [deadline, setDeadline] = useState('');
+  const dispatch  = useDispatch();
+  const navigate = useNavigate();
+
+  const {isLoading} = useSelector((state) => state.job);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(createJob({title, type, salary, deadline}));
+    setTitle('');
+    setType('');
+    setSalary('');
+    setDeadline('')
+    navigate('/')
+  }
+
   return (
     <main className="max-w-3xl rounded-lg mx-auto relative z-20 p-10 xl:max-w-none bg-[#1E293B]">
       <h1 className="mb-10 text-center lws-section-title">Add New Job</h1>
 
       <div className="max-w-3xl mx-auto">
-        <form className="space-y-6" >
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div className="fieldContainer">
             <label className="text-sm font-medium text-slate-300">
               Job Title
@@ -15,7 +37,8 @@ const AddJob = () => {
               id="lws-JobTitle"
               name="lwsJobTitle"
               required
-              value=""
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             >
               <option value="" hidden selected>
                 Select Job
@@ -43,7 +66,8 @@ const AddJob = () => {
               id="lws-JobType"
               name="lwsJobType"
               required
-              value=""
+              value={type}
+              onChange={(e) => setType(e.target.value)}
             >
               <option value="" hidden selected>
                 Select Job Type
@@ -65,7 +89,8 @@ const AddJob = () => {
                 required
                 className="!rounded-l-none !border-0"
                 placeholder="20,00,000"
-                value=""
+                value={salary}
+                onChange={(e) => setSalary(e.target.value)}
               />
             </div>
           </div>
@@ -77,7 +102,8 @@ const AddJob = () => {
               name="lwsJobDeadline"
               id="lws-JobDeadline"
               required
-              value=""
+              value={deadline}
+              onChange={(e) => setDeadline(e.target.value)}
             />
           </div>
 
@@ -86,6 +112,7 @@ const AddJob = () => {
               type="submit"
               id="lws-submit"
               className="cursor-pointer btn btn-primary w-fit"
+              disabled= {isLoading}
             >
               Save
             </button>

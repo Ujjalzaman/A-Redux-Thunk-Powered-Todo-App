@@ -1,7 +1,11 @@
 import React from 'react'
 import JobsList from '../components/JobsList'
+import {useDispatch} from 'react-redux'
+import {searched, sorted} from '../features/filter/filterSlice';
+
 
 const HomePage = () => {
+  const dispatch = useDispatch();
   return (
     <main className="max-w-3xl rounded-lg mx-auto relative z-20 p-10 xl:max-w-none bg-[#1E293B]">
       <div className="md:flex space-y-2 md:space-y-0 justify-between mb-10">
@@ -14,6 +18,7 @@ const HomePage = () => {
               placeholder="Search Job"
               className="search-input"
               id="lws-searchJob"
+              onChange={(e) => dispatch(searched(e.target.value))}
             />
           </div>
           <select
@@ -21,6 +26,8 @@ const HomePage = () => {
             name="sort"
             autoComplete="sort"
             className="flex-1"
+            onChange={(e) => dispatch(sorted(e.target.value))}
+
           >
             <option>Default</option>
             <option>Salary (Low to High)</option>
